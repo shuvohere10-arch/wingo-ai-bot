@@ -1,3 +1,26 @@
+from flask import Flask
+import threading
+import os
+
+app = Flask(__name__)
+
+@app.route('/')
+def index():
+    return "Bot is Running Successfully!"
+
+def run_flask():
+    # Render পোর্ট খুঁজে পাওয়ার জন্য এটি ১০০০০ পোর্টে চলবে
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host='0.0.0.0', port=port)
+
+# এটি বট চালু হওয়ার পাশাপাশি আলাদাভাবে চলবে
+threading.Thread(target=run_flask).start()
+
+# --- এখান থেকে আপনার আগের কোড শুরু ---
+import telebot
+from telebot import types
+import json
+# ... বাকি সব কিছু আগের মতোই থাকবে ...
 import telebot
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 import requests
